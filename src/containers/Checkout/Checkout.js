@@ -22,15 +22,6 @@ class Checkout extends Component {
             }
         }
         this.setState( { ingredients: ingredients, totalPrice: price } );
-        console.log('CheckOut ComponentWillMount');
-        console.log('ingredients');
-        console.log(this.state.ingredients);
-        console.log('ingredients1');
-        console.log(ingredients);
-        console.log('Price');
-        console.log(price);
-        console.log('TotalPrice');
-        console.log(this.state.price);
     }
 
     checkoutCancelledHandler = () => {
