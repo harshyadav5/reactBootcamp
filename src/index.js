@@ -19,7 +19,7 @@ const logger = store => {
     return next => {
         return action => {
             console.log('[Middleware] Dispatching', action)
-            const result = next(action);
+            const result = next(action);    //it is actually passing the payload to next dispatch
             console.log('[Middleware] next State', store.getState())
             return result;
         }
