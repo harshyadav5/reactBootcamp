@@ -1,5 +1,7 @@
 import * as actionTypes from './actionTypes';
 import axios from  '../../axios-orders';
+import { useDispatch } from 'react-redux';
+import { useImperativeHandle } from 'react';
 
 export const purchaseBurgerSuccess = (id,orderData) => {
     return {
@@ -21,10 +23,11 @@ export const purchaseBurgerStart = () => {
     }
 }
 
-export const purchaseBurger = (orderData) => {
+export const purchaseBurger = (orderData,token) => {
+    console.log(token)
     return dispatch => {
         dispatch(purchaseBurgerStart())
-        axios.post('/orders.json', orderData)
+        axios.post('/orders.json?auth='+token, orderData)
         .then(response => {
             console.log(response.data)
             dispatch(purchaseBurgerSuccess(response.data.name,orderData))
@@ -35,7 +38,7 @@ export const purchaseBurger = (orderData) => {
     }
 }
 
-export const purchaseInit = () => {
+export const purchaseInit = () => {   //Issue
     return {
         type: actionTypes.PURCHASE_INIT
     }
@@ -61,10 +64,11 @@ export const fetchOrdersStart = () => {
     }
 }
 
-export const fetchOrders = () => {
+export const fetchOrders = (token, userId) => {
     return dispatch => {
         dispatch(fetchOrdersStart())
-        axios.get('/orders.json')
+        const queryParam = '?auth=' +token+ '&orderBy="userId"&equalTo="' +userId + '"';
+        axios.get('/orders.json'+queryParam)
         .then(res => {
             const fetchedOrders = [];
             for(let key in res.data){

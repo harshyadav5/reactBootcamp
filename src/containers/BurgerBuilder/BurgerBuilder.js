@@ -31,7 +31,6 @@ class BurgerBuilder extends Component {
         //error: false
     }
     componentDidMount () {
-        console.log('Burger Will gets Mounted');
         this.props.onInitIngredients()
         // axios.get('https://burger-builder-5c86f.firebaseio.com/ingredients.json')
         // .then(response => {
@@ -51,7 +50,13 @@ class BurgerBuilder extends Component {
         return sum > 0 
     }
     purchaseHandler = () => {
-        this.setState({purchasing: true});
+        if(this.props.isAuthenticated){
+         this.setState({purchasing: true});
+        }
+        else{
+            this.props.onSetRedirectPath('/checkout');
+            this.props.history.push('/auth');
+        }
     }
 
     purchaseCancelHandler = () => {
@@ -90,6 +95,7 @@ class BurgerBuilder extends Component {
                 disabled={disabledInfo}
                 purchasable={this.updatePurchaseState(this.props.ings)}
                 ordered={this.purchaseHandler}
+                isAuth={this.props.isAuthenticated}
                 price={this.props.price} />
                 </Aux>
             );
@@ -118,7 +124,8 @@ const mapStateToProps = state => {
     return {
         ings : state.burgerBuilder.ingredients,
         price: state.burgerBuilder.totalPrice,
-        error: state.burgerBuilder.error
+        error: state.burgerBuilder.error,
+        isAuthenticated: state.auth.token
     }
 }
 
@@ -127,7 +134,8 @@ const mapDispatchToProps = dispatch => {
         onIngredientAdded: (ingName) => dispatch(burgerBuilderAction.addIngredients(ingName)),
         onIngredientRemove: (ingName) => dispatch(burgerBuilderAction.removeIngredients(ingName)),
         onInitIngredients: () => dispatch(burgerBuilderAction.initIngredients()),
-        onInitPurchase: () => dispatch(burgerBuilderAction.purchaseInit())
+        onInitPurchase: () => dispatch(burgerBuilderAction.purchaseInit()),
+        onSetRedirectPath: (path) => dispatch(burgerBuilderAction.setAuthRedirectPath(path))
     }
 }
 

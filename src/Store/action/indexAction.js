@@ -7,4 +7,11 @@ export {purchaseBurger,
     purchaseInit,
     fetchOrders,
     purchaseBurgerSuccess,
-    purchaseBurgerFail} from './orderAction'
+    purchaseBurgerFail} from './orderAction';
+
+export {
+    auth,
+    logout,
+    setAuthRedirectPath,
+    authCheckState
+} from './authAction';
