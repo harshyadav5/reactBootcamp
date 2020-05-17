@@ -11,7 +11,11 @@ import orderReducer from './Store/reducer/orderReducer';
 import authReducer from './Store/reducer/authReducer'
 import thunk from 'redux-thunk';
 
-const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+/*process.env.NODE_ENV will make appliaction to show development tools conditionally
+means in development mode user can inspect javascript code but in production mode
+it's not possible*/
+
+const composeEnhancers =process.env.NODE_ENV === 'development'? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ : null|| compose;
 
 const rootReducer = combineReducers({
   burgerBuilder: burgerBuilderReducer,

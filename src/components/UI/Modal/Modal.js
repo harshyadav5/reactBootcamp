@@ -13,9 +13,9 @@ class modal extends Component{
         return nextProps.show !== this.props.show || nextProps.children !== this.props.children;
     }
 
-    componentDidUpdate(){
-       // console.log('[Modal] Did Update');
-    }
+    // componentDidUpdate(){
+    //    // console.log('[Modal] Did Update');
+    // }
     render(){
         return(
             //-100vh = viewport Height

@@ -57,7 +57,6 @@ export const auth = (email, password, isSignup) => {
         }
         axios.post(url, authData)
             .then(response => {
-                console.log(response);
                 const expirationDate = new Date(new Date().getTime() + response.data.expiresIn*1000);
                 localStorage.setItem('token',response.data.idToken);
                 localStorage.setItem('expirationTime',expirationDate);
@@ -85,17 +84,17 @@ export const authCheckState = () => {
             dispatch(logout())
         }
         else{
-            console.log('else Condition');
+            //.log('else Condition');
             const expirationTime = new Date(localStorage.getItem('expirationTime'))
             if(expirationTime <= new Date()){  
                 console.log('else- if Condition');
                 dispatch(logout())
             }
             else{
-                console.log('else-else Condition');
+              //  console.log('else-else Condition');
                 const userId = localStorage.getItem('userId');
                 dispatch(authSuccess(token,userId));
-                dispatch(checkAuthTimeout((expirationTime.getTime() - new Date().getTime())) / 1000);
+//                dispatch(checkAuthTimeout((expirationTime.getTime() - new Date().getTime())) / 1000);
             }
         }
     }
