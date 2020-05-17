@@ -12,7 +12,7 @@ import Spinner from '../../components/UI/Spinner/Spinner'
 import withErrorHandler from '../../hoc/withErrorHandler/WithErrorHandler'
 
 
-class BurgerBuilder extends Component {
+export class BurgerBuilder extends Component {
     // constructor(props) {
     //     super(props);
     //     this.state = {...}
