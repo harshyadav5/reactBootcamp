@@ -15,7 +15,7 @@ import thunk from 'redux-thunk';
 means in development mode user can inspect javascript code but in production mode
 it's not possible*/
 
-const composeEnhancers =process.env.NODE_ENV === 'development'? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ : null|| compose; //issue
+//const composeEnhancers =process.env.NODE_ENV === 'development'? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ : null|| compose; //issue
 
 const rootReducer = combineReducers({
   burgerBuilder: burgerBuilderReducer,

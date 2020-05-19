@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React from 'react';
 
 import classes from './Modal.module.css';
 import Aux from '../../../hoc/Aux';
@@ -7,30 +7,28 @@ import Backdrop from '../Backdrop/Backdrop';
 /*Backdrop is placed with Modal , because whenever Modal is shown backdrop should also be shown
 , still there are other ways to place it but dor that we need to make some components stateful*/
 
-class modal extends Component{
+/*Converted To Functional Component*/
+const modal = props => {
 
-    shouldComponentUpdate(nextProps, nextState){
-        return nextProps.show !== this.props.show || nextProps.children !== this.props.children;
-    }
-
-    // componentDidUpdate(){
-    //    // console.log('[Modal] Did Update');
-    // }
-    render(){
+ 
         return(
             //-100vh = viewport Height
         <Aux>
-            <Backdrop show={this.props.show} clicked={this.props.modalClosed}/>
+            <Backdrop show={props.show} clicked={props.modalClosed}/>
                 <div className={classes.Modal}
                 style={{
-                    transform: this.props.show ? 'translateY(0)' : 'translateY(-100vh)',
-                    opacity: this.props.show ? '1' : '0'
+                    transform: props.show ? 'translateY(0)' : 'translateY(-100vh)',
+                    opacity: props.show ? '1' : '0'
                 }}>
-                    {this.props.children}
+                    {props.children}
                 </div>
         </Aux>
         );
-    }
 }
 
-export default modal;
+export default React.memo(
+    modal,
+    (prevProps,nextProps) => 
+    nextProps.show === prevProps.show && 
+    nextProps.children === prevProps.children
+    );
